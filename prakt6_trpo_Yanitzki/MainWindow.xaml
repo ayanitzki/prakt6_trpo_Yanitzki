@@ -1,0 +1,99 @@
+﻿<Window x:Class="prakt6_trpo_Yanitzki.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:prakt6_trpo_Yanitzki"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Background="{DynamicResource PanelBg}">
+    <Grid Margin="10" Background="{DynamicResource PanelBg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="317*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource PanelBg}">
+            <Grid>
+                <Button Content="Сменить тему" HorizontalAlignment="Right" Click="ChangeTheme_Click" Style="{StaticResource ChangeThemeButton}" Width="120"/>
+            </Grid>
+        </Border>
+
+        <Grid Margin="0, 71, 0, 0" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="46"/>
+                <RowDefinition Height="286"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="0" Grid.RowSpan="3" >
+                <GroupBox Header="Выбор оборудования">
+                    <StackPanel>
+                        <TextBlock Text="Выберите прибор:"/>
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem Content="Аппарат МРТ"/>
+                            <ComboBoxItem Content="Генератор помех"/>
+                            <ComboBoxItem Content="Частотомер"/>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Режимы испытаний">
+                    <StackPanel>
+                        <RadioButton Content="Стандартный режим" IsChecked="True"/>
+                        <RadioButton Content="Сверхнагрузка"/>
+                        <RadioButton Content="Режим диагностики"/>
+
+                        <TextBlock Text="Дополнительные параметры:"/>
+                        <CheckBox x:Name="CoolingCheck" Content="Включить охлаждение стенда" IsChecked="True"/>
+                        <CheckBox Content="Запись логов в текстовый файл" IsChecked="False"/>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+
+            <Border Grid.Column="1" Background="{DynamicResource PanelBg}" BorderThickness="1" CornerRadius="4" Padding="10" Margin="5,0,0,0" Grid.RowSpan="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="Данные текущего эксперимента:"/>
+
+                        <TextBlock Text="Идентификатор образца:"/>
+                        <TextBox Text="XMPL-847368"/>
+
+                        <TextBlock Text="Лог:"/>
+                        <TextBox Text="Стенд запущен. Ожидание выбора оборудования" 
+                                 AcceptsReturn="True" TextWrapping="Wrap" Height="70" VerticalScrollBarVisibility="Auto"/>
+
+                        <TextBlock Text="Прогресс выполнения:" />
+                        <ProgressBar Value="35" Minimum="0" Maximum="100"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0" Content="Старт замера"/>
+                            <Button Grid.Column="1" Content="Ускорить" IsEnabled="{Binding ElementName=CoolingCheck, Path=IsChecked}"/>
+                        </Grid>
+
+                        <Grid Margin="0,5,0,0">
+                            <Button Content="АВАРИЙНЫЙ СТОП" Style="{StaticResource EmeregencyStopButton}"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
